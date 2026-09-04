@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mord um das Vermächtnis — Station 2 (Alibis)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;700&family=Caveat:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#000; --green:#B4DC41; --yellow:#F5DC24;
+    --cork:#c79a5e; --paper:#fbf6ea; --ink:#1c1a17;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#2b2b2b;font-family:'Inter',Arial,sans-serif;}
+  .wrap{display:flex;justify-content:center;padding:10px;}
+  .stage{width:1400px;height:990px;transform-origin:top center;}
+  .poster{
+    position:relative;width:1400px;height:990px;overflow:hidden;
+    border:14px solid #1c130a;border-radius:6px;
+    background-color:var(--cork);
+    background-image:
+      radial-gradient(circle at 50% 38%, rgba(255,240,210,.18), rgba(0,0,0,0) 60%),
+      radial-gradient(circle at 12% 90%, rgba(0,0,0,.22), rgba(0,0,0,0) 55%),
+      radial-gradient(circle at 90% 12%, rgba(0,0,0,.20), rgba(0,0,0,0) 55%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+    background-blend-mode:normal,normal,normal,multiply;
+    box-shadow:inset 0 0 120px rgba(60,30,0,.45);
+  }
+  /* Absperrband */
+  .tapebar{position:absolute;left:-40px;width:1480px;height:46px;background:var(--yellow);
+    display:flex;align-items:center;overflow:hidden;box-shadow:0 3px 8px rgba(0,0,0,.35);z-index:6;}
+  .tapebar.top{top:34px;transform:rotate(-1.6deg);}
+  .tapebar.bottom{bottom:30px;transform:rotate(1.2deg);}
+  .tapebar span{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:6px;color:#111;
+    white-space:nowrap;opacity:.92;padding-right:26px;}
+  .tapebar .edge{position:absolute;top:0;height:100%;width:14px;
+    background:repeating-linear-gradient(90deg,#111 0 6px,transparent 6px 12px);opacity:.18;}
+  /* Kopf */
+  .logoplate{position:absolute;top:100px;left:48px;background:#000;padding:18px 24px;border-radius:8px;
+    transform:rotate(-2deg);box-shadow:0 10px 22px rgba(0,0,0,.45);z-index:5;
+    color:#fff;font-family:'Anton',sans-serif;font-size:22px;letter-spacing:2px;}
+  .logoplate img{display:block;height:56px;width:auto;}
+  .titleband{position:absolute;top:104px;left:340px;z-index:5;transform:rotate(-1deg);}
+  .titleband .kicker{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:5px;color:#2c1c06;
+    font-size:17px;margin:0 0 2px 6px;}
+  .titleband h1{font-family:'Anton',sans-serif;font-size:54px;line-height:.9;margin:0;color:#111;
+    text-shadow:2px 3px 0 var(--yellow);}
+  .titleband h1 .mot{color:#1c130a;-webkit-text-stroke:2px #111;}
+  .badge{position:absolute;top:92px;right:54px;width:124px;height:124px;border-radius:50%;
+    background:var(--green);color:#10210a;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    transform:rotate(8deg);box-shadow:0 8px 18px rgba(0,0,0,.4);border:4px dashed #10210a;z-index:5;}
+  .badge b{font-family:'Anton',sans-serif;font-size:44px;line-height:.9;}
+  .badge small{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:2px;font-size:13px;}
+  .casetag{position:absolute;top:240px;left:340px;background:#111;color:#eee;font-family:'Oswald',sans-serif;
+    font-weight:500;font-size:15px;letter-spacing:1px;padding:7px 14px;transform:rotate(-1deg);z-index:5;
+    box-shadow:0 6px 14px rgba(0,0,0,.35);}
+  .casetag b{color:var(--yellow);}
+  /* Grundbausteine */
+  .pin{position:absolute;width:24px;height:24px;border-radius:50%;z-index:8;
+    background:radial-gradient(circle at 34% 28%, #fff6, #d33 42%, #8c1410 75%);
+    box-shadow:0 5px 7px rgba(0,0,0,.45);}
+  .pin.blue{background:radial-gradient(circle at 34% 28%, #fff6, #3f7fd0 42%, #1d3f72 75%);}
+  .pin.green{background:radial-gradient(circle at 34% 28%, #fff6, #8cc63f 42%, #4e7d18 75%);}
+  .pin.yellow{background:radial-gradient(circle at 34% 28%, #fff8, #f3d23a 42%, #b48a10 75%);}
+  .card{position:absolute;z-index:3;background:var(--paper);border-radius:4px;
+    box-shadow:0 14px 26px rgba(0,0,0,.40);}
+  .doc{padding:20px 15px 13px;color:var(--ink);}
+  .doc .hd{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1px;font-size:12px;
+    color:#7a1d18;text-transform:uppercase;}
+  .doc h3{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;margin:2px 0 7px;
+    text-transform:uppercase;letter-spacing:1px;}
+  .doc p{font-size:12px;line-height:1.42;margin:0 0 5px;}
+  .sig{font-family:'Caveat',cursive;font-weight:700;font-size:23px;color:#1a2b6b;
+    transform:rotate(-3deg);display:inline-block;}
+  .times{font-family:'Oswald',sans-serif;font-size:12px;color:#1c1a17;border-top:1px solid #d8ceb5;margin-top:6px;}
+  .times div{display:flex;justify-content:space-between;gap:10px;padding:2px 0;border-bottom:1px dotted #d8ceb5;}
+  /* Chat */
+  .phone{background:#0b141a;border-radius:20px;padding:10px 10px 10px;}
+  .phone .bar{display:flex;align-items:center;gap:8px;background:#1f2c33;border-radius:12px 12px 0 0;
+    padding:15px 10px 7px;margin:-10px -10px 0;}
+  .phone .ava{width:27px;height:27px;border-radius:50%;background:#3a4a52;display:flex;align-items:center;
+    justify-content:center;color:#cfe;font-weight:800;font-size:13px;}
+  .phone .who{color:#e9edef;font-size:12.5px;font-weight:600;}
+  .phone .who span{display:block;color:#8aa;font-size:10px;font-weight:400;}
+  .phone .own{margin-left:auto;font-family:'Oswald',sans-serif;font-size:9px;color:var(--green);
+    letter-spacing:1px;text-align:right;line-height:1.2;}
+  .chat{background:#0b141a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%230b141a'/%3E%3Ccircle cx='8' cy='8' r='1' fill='%23ffffff10'/%3E%3C/svg%3E");
+    padding:7px 6px;display:flex;flex-direction:column;gap:4px;}
+  .b{max-width:87%;padding:5px 8px;border-radius:9px;font-size:11px;line-height:1.26;color:#e9edef;
+    box-shadow:0 1px 1px #0006;}
+  .b.in{background:#202c33;align-self:flex-start;border-top-left-radius:2px;}
+  .b.out{background:#005c4b;align-self:flex-end;border-top-right-radius:2px;}
+  .b .t{display:block;text-align:right;font-size:8.5px;color:#ffffff8a;margin-top:1px;}
+  .b.img{padding:5px;}
+  .b.img img,.b.img svg{display:block;border-radius:6px;}
+  .b.img .cp{font-size:11.5px;line-height:1.3;padding:4px 4px 1px;}
+  .vrow{display:flex;align-items:center;gap:8px;}
+  .play{width:28px;height:28px;border-radius:50%;background:#0b8f76;color:#fff;display:flex;
+    align-items:center;justify-content:center;font-size:12px;flex:none;}
+  .wave{flex:1;height:20px;background:repeating-linear-gradient(90deg,#9fb1ad 0 2px,transparent 2px 6px);
+    -webkit-mask:linear-gradient(90deg,#000 60%,#0006);mask:linear-gradient(90deg,#000 60%,#0006);border-radius:3px;}
+  /* QR */
+  .qrbox{background:#fff;padding:6px;border-radius:5px;display:inline-block;line-height:0;}
+  .qrbox .lab{display:block;font-family:'Oswald',sans-serif;font-size:8.5px;letter-spacing:.5px;
+    color:#333;text-align:center;padding-top:3px;line-height:1.1;}
+  /* Polaroid */
+  .polaroid{background:#fff;padding:7px 7px 20px;box-shadow:0 8px 16px rgba(0,0,0,.32);}
+  .polaroid .cap2{font-family:'Caveat',cursive;font-weight:700;font-size:17px;text-align:center;
+    color:#333;margin-top:5px;}
+  /* Fusszeile */
+  .legend{position:absolute;bottom:36px;left:50%;transform:translateX(-50%) rotate(-.6deg);background:#000;
+    color:#fff;padding:9px 20px;font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:1px;z-index:7;
+    box-shadow:0 8px 16px rgba(0,0,0,.45);}
+  .legend b{color:var(--green);}
+  .credit{position:absolute;bottom:6px;right:18px;font-size:11px;color:#2a1c08;
+    font-family:'Oswald',sans-serif;opacity:.6;z-index:6;}
+
+  /* ---- nur Station 2 ---- */
+  .mailprint{background:#fff;border-radius:4px;overflow:hidden;}
+  .mailprint .mh{background:#f1f3f4;border-bottom:1px solid #dadce0;padding:14px 11px 6px;
+    font-family:'Oswald',sans-serif;font-size:10px;color:#5f6368;line-height:1.55;}
+  .mailprint .mh b{color:#202124;}
+  .mailprint .mb{padding:8px 11px 9px;font-size:11.5px;color:#202124;line-height:1.4;}
+  .shot{position:relative;background:#10120f;overflow:hidden;border-radius:3px;}
+  .shot .osd{position:absolute;left:6px;top:5px;font-family:'Oswald',monospace;font-size:8.5px;
+    color:#c9f0a0;letter-spacing:.5px;}
+  .shot .ts{position:absolute;left:6px;bottom:5px;font-family:'Oswald',monospace;font-size:10px;
+    color:#eaf7d8;text-shadow:0 0 5px #000;}
+  .shot .scan{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 2px,transparent 2px 4px);}
+  /* postmylife */
+  .pml{background:#f2f9fe;border-radius:8px;overflow:hidden;}
+  .pml .ih{display:flex;align-items:center;gap:8px;padding:17px 10px 9px;background:#4BAAE1;}
+  .pml .av{width:28px;height:28px;border-radius:50%;background:#0B80C6;border:2px solid #fff;flex:none;}
+  .pml .nm{font-size:12.5px;font-weight:700;color:#fff;line-height:1.2;}
+  .pml .nm span{display:block;font-size:9.5px;font-weight:400;color:#dff0fb;}
+  .pml .brand{margin-left:auto;font-family:'Anton',sans-serif;font-size:12px;letter-spacing:1px;color:#fff;}
+  .pml .cap{padding:7px 9px;font-size:11px;line-height:1.4;color:#1d2b33;}
+  .pml .cap b{color:#0B80C6;}
+  .pml .cmts{border-top:1px solid #cfe6f5;padding:5px 8px 9px;}
+  .pml .cm{display:flex;gap:6px;align-items:baseline;font-size:10px;line-height:1.3;color:#33474f;
+    padding:2px 4px;border-radius:4px;}
+  .pml .cm b{color:#0B80C6;}
+  .pml .cm .tm{margin-left:auto;color:#7d949f;font-size:9.5px;white-space:nowrap;}
+  .pml .cm.key{background:#fdf3c4;}
+  /* Visitenkarte */
+  .bizcard{background:#121212;border-radius:3px;padding:13px 14px;box-shadow:0 10px 20px rgba(0,0,0,.45);}
+  .bizcard .n{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:1px;color:#e1c36e;line-height:1;}
+  .bizcard .s{font-family:'Oswald',sans-serif;font-size:9.5px;letter-spacing:3px;color:#b9ad8c;margin-top:5px;}
+  .bizcard .c{font-family:'Oswald',sans-serif;font-size:10.5px;color:#e8e2d2;margin-top:9px;line-height:1.5;
+    border-top:1px solid #3a3428;padding-top:7px;}
+  .sticky{position:absolute;background:#f7e96b;font-family:'Caveat',cursive;font-weight:700;font-size:18px;
+    color:#27200a;padding:11px 13px;box-shadow:0 8px 16px rgba(0,0,0,.32);line-height:1.18;z-index:6;}
+  /* Fotostrecke */
+  .strip{display:flex;gap:8px;}
+  .strip figure{margin:0;background:#fff;padding:5px 5px 3px;box-shadow:0 5px 11px rgba(0,0,0,.28);}
+  .strip figcaption{font-family:'Oswald',sans-serif;font-size:8px;color:#444;text-align:center;
+    padding-top:3px;line-height:1.25;}
+  .strip figcaption b{display:block;font-size:9.5px;color:#111;}
+  .maprint{background:#efe6cc;border:1px solid #cdbf9a;border-radius:2px;}
+  /* QR-Karte */
+  .qrcard{display:flex;gap:12px;align-items:flex-start;}
+  .qrcard .txt{flex:1;}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="stage">
+<div class="poster">
+
+  <div class="tapebar top"><div class="edge" style="left:0"></div>
+    <span>ALIBI · ALIBI · ALIBI · ALIBI · ALIBI · ALIBI · ALIBI · ALIBI · ALIBI · ALIBI · ALIBI · ALIBI · ALIBI</span>
+    <div class="edge" style="right:0"></div></div>
+
+  <div class="logoplate"><img src="assets/hg-logo-white.svg" alt="HIDDEN GAMES"></div>
+  <div class="titleband">
+    <p class="kicker">MORD UM DAS VERMÄCHTNIS — POCKETFALL</p>
+    <h1>STATION 2<br><span class="mot">DIE ALIBIS</span></h1>
+  </div>
+  <div class="badge"><b>2</b><small>VON 2</small></div>
+  <div class="casetag">Tatzeit <b>21:00–22:30</b> · Ermittlung: <b>Kommissar A. Gallo</b> · Wer kann belegen, wo er war?</div>
+
+  <!-- ===== A: CAS — Mail der Festival-Sicherheitsleitung ===== -->
+  <div class="card" style="top:300px;left:60px;width:372px;transform:rotate(-1.5deg);">
+    <div class="mailprint">
+      <div class="mh">
+        Von: <b>Sicherheitsleitung Lucca Comics &amp; Games</b><br>
+        An: <b>Kommissar A. Gallo</b><br>
+        Betreff: <b>Ihre Anfrage — Tatzeit 31.10., Castruccio Castracani</b> · 01.11.2026, 09:12
+      </div>
+      <div class="mb">
+        <div style="display:flex;gap:8px;margin-bottom:9px;">
+          <div class="shot" style="width:164px;height:62px;">
+            <svg width="164" height="62" viewBox="0 0 158 96">
+              <rect width="158" height="96" fill="#1b2018"/>
+              <path d="M46 96V44a33 33 0 0 1 66 0v52Z" fill="#2a3126"/>
+              <path d="M58 96V50a21 21 0 0 1 42 0v46Z" fill="#0d100b"/>
+              <circle cx="122" cy="52" r="9" fill="#4d5a44"/>
+              <path d="M122 62c-9 0-13 14-13 26h26c0-12-4-26-13-26Z" fill="#4d5a44"/>
+              <rect x="0" y="86" width="158" height="10" fill="#232a20"/>
+            </svg>
+            <div class="scan"></div><div class="osd">CAM 04 · ANTRITT</div>
+            <div class="ts">31.10. 20:44:12</div>
+          </div>
+          <div class="shot" style="width:164px;height:62px;">
+            <svg width="164" height="62" viewBox="0 0 158 96">
+              <rect width="158" height="96" fill="#1b2018"/>
+              <path d="M46 96V44a33 33 0 0 1 66 0v52Z" fill="#2a3126"/>
+              <path d="M58 96V50a21 21 0 0 1 42 0v46Z" fill="#0d100b"/>
+              <circle cx="40" cy="54" r="9" fill="#4d5a44"/>
+              <path d="M40 64c-9 0-13 14-13 24h26c0-10-4-24-13-24Z" fill="#4d5a44"/>
+              <rect x="0" y="86" width="158" height="10" fill="#232a20"/>
+            </svg>
+            <div class="scan"></div><div class="osd">CAM 04 · ABLÖSUNG</div>
+            <div class="ts">31.10. 23:06:41</div>
+          </div>
+        </div>
+        Sehr geehrter Herr Kommissar Gallo, hiermit bestätigen wir Ihnen, dass Herr <b>Castruccio Castracani</b> am 31.10.2026
+        durchgehend an seinem Posten am Haupttor (Porta San Pietro) war. Anbei zwei Standbilder unserer
+        Kamera CAM 04; auf dem Bandmaterial dazwischen ist er <b>ohne Unterbrechung im Bild</b>.
+        <div style="text-align:right;margin-top:8px;"><span class="sig">F. Moretti</span><br>
+          <span style="font-size:10px;color:#777;">Sicherheitsleitung Festival</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="pin" style="top:288px;left:400px;"></div>
+
+  <!-- ===== B: ZEUGENAUSSAGE (Verhör hinter dem QR) ===== -->
+  <div class="card" style="top:304px;left:456px;width:318px;transform:rotate(1.5deg);">
+    <div class="doc">
+      <div class="hd">Polizia Municipale — Vernehmung</div>
+      <h3 style="margin-bottom:8px;">Zeugenaussage<br>Lucida Mansi</h3>
+      <div class="qrcard">
+        <div class="qrbox"><svg class="qr" data-seed="23" width="88" height="88"></svg>
+          <span class="lab">ANHÖREN</span></div>
+        <div class="txt">
+          <p style="font-size:12px;margin:0;">Aufgenommen von <b>Kommissar A. Gallo</b>,<br>01.11.2026.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pin blue" style="top:292px;left:742px;"></div>
+
+  <!-- ===== C: ELISA — postmylife ===== -->
+  <div class="card" style="top:300px;left:800px;width:326px;transform:rotate(-2deg);">
+    <div class="pml">
+      <div class="ih"><div class="av"></div>
+        <div class="nm">elisa.baciocchi<span>Borgo della Leggenda · Lucca</span></div>
+        <div class="brand">postmylife</div></div>
+      <div class="shot" style="border-radius:0;height:104px;">
+        <svg width="326" height="104" viewBox="0 0 330 126">
+          <rect width="330" height="126" fill="#2c2a35"/>
+          <rect x="0" y="86" width="330" height="40" fill="#4a4030"/>
+          <rect x="196" y="60" width="104" height="30" rx="3" fill="#1b1a22"/>
+          <rect x="204" y="66" width="88" height="18" rx="2" fill="#6f8f5a"/>
+          <circle cx="120" cy="46" r="19" fill="#e8cfa8"/>
+          <path d="M120 66c-22 0-32 20-32 40h64c0-20-10-40-32-40Z" fill="#b4dc41"/>
+          <rect x="30" y="24" width="60" height="16" rx="3" fill="#f5dc24" opacity=".85"/>
+          <text x="34" y="36" font-family="Oswald" font-size="11" fill="#111">TICKETS</text>
+        </svg>
+        <div class="scan"></div>
+        <div class="ts" style="left:auto;right:7px;bottom:6px;font-size:11px;">31.10.2026  20:12</div>
+      </div>
+      <div class="cap"><b>elisa.baciocchi</b> Auch dieses Jahr wieder beim Festival! Ihr findet mich an
+        <b>Ticketstand 2</b> 🎟 Schichten: Fr 14–20 · <b>Sa 20–23</b> · So 10–16 — kommt vorbei!
+        <div style="color:#9aa2a8;font-size:9.5px;margin-top:4px;">gepostet Sa · 20:15</div></div>
+      <div class="cmts">
+        <div class="cm"><span><b>lea_v</b> Ach cool, gibt's einen Family-and-Friends-Rabatt?</span><span class="tm">20:31</span></div>
+        <div class="cm"><span><b>dario_c</b> Sorry, das Festival ist mir viel zu groß 🙈</span><span class="tm">20:48</span></div>
+        <div class="cm key"><span><b>giulia_p</b> Grad Tickets bei dir geholt, danke nochmal! 🙌</span><span class="tm">21:44</span></div>
+        <div class="cm key"><span><b>marco.tt</b> Standest du nicht eben noch an der Kasse? 😄</span><span class="tm">22:20</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="pin green" style="top:288px;left:1094px;"></div>
+
+  <!-- ===== D: UGO — Fotostrecke + Route ===== -->
+  <div class="card" style="top:630px;left:60px;width:480px;transform:rotate(1deg);">
+    <div class="doc" style="padding:13px 14px 9px;">
+      <div class="hd">Offizielle Festivalfotografie · Lucca Comics &amp; Games</div>
+      <h3 style="font-size:16px;margin-bottom:5px;">Corteo delle Lanterne · 31.10.2026</h3>
+      <div class="strip">
+        <figure><svg width="96" height="46" viewBox="0 0 98 66"><rect width="98" height="66" fill="#1a1626"/>
+          <circle cx="20" cy="18" r="6" fill="#f5dc24" opacity=".85"/><circle cx="74" cy="14" r="5" fill="#f5dc24" opacity=".7"/>
+          <path d="M34 66V40c0-8 6-13 14-13s14 5 14 13v26Z" fill="#3a3348"/>
+          <circle cx="48" cy="24" r="8" fill="#e8cfa8"/>
+          <rect x="66" y="26" width="11" height="14" rx="2" fill="#f5dc24"/></svg>
+          <figcaption><b>21:18</b>Via Fillungo</figcaption></figure>
+        <figure><svg width="96" height="46" viewBox="0 0 98 66"><rect width="98" height="66" fill="#191528"/>
+          <ellipse cx="49" cy="52" rx="46" ry="14" fill="#2b2540"/>
+          <circle cx="16" cy="16" r="5" fill="#f5dc24" opacity=".8"/><circle cx="82" cy="20" r="6" fill="#f5dc24" opacity=".8"/>
+          <path d="M36 66V42c0-8 5-13 12-13s12 5 12 13v24Z" fill="#3a3348"/>
+          <circle cx="48" cy="26" r="8" fill="#e8cfa8"/>
+          <rect x="64" y="28" width="11" height="14" rx="2" fill="#f5dc24"/></svg>
+          <figcaption><b>21:52</b>Piazza dell'Anfiteatro</figcaption></figure>
+        <figure><svg width="96" height="46" viewBox="0 0 98 66"><rect width="98" height="66" fill="#1c1729"/>
+          <path d="M18 66V30a31 31 0 0 1 62 0v36Z" fill="#2a2440"/>
+          <path d="M34 66V46c0-7 5-12 12-12s12 5 12 12v20Z" fill="#3a3348"/>
+          <circle cx="46" cy="30" r="8" fill="#e8cfa8"/>
+          <rect x="62" y="32" width="11" height="14" rx="2" fill="#f5dc24"/></svg>
+          <figcaption><b>22:24</b>Porta dei Borghi</figcaption></figure>
+        <figure><svg class="maprint" width="96" height="46" viewBox="0 0 132 64">
+          <rect width="132" height="64" fill="#efe6cc"/>
+          <path d="M0 16h132M0 50h132M30 0v64M102 0v64" stroke="#ded1ac" stroke-width="6"/>
+          <ellipse cx="72" cy="28" rx="36" ry="19" fill="#e4d8b6" stroke="#b9a97f" stroke-width="2"/>
+          <ellipse cx="72" cy="28" rx="36" ry="19" fill="none" stroke="#b00020" stroke-width="3.4" stroke-dasharray="7 5"/>
+          <circle cx="36" cy="28" r="4.2" fill="#b00020"/><circle cx="72" cy="9" r="4.2" fill="#b00020"/>
+          <circle cx="108" cy="28" r="4.2" fill="#b00020"/>
+          <g><rect x="6" y="46" width="26" height="14" rx="2" fill="#c9bb96"/>
+            <path d="M6 46l26 14M32 46L6 60" stroke="#b00020" stroke-width="3"/></g></svg>
+          <figcaption><b>Route</b>Anfiteatro, nicht Borgo</figcaption></figure>
+      </div>
+      <p style="margin-top:7px;font-size:10.5px;line-height:1.4;">Sehr geehrter Herr Kommissar Gallo, anbei die drei
+        angeforderten Aufnahmen des Laternenumzugs. Der Laternenträger der Gruppe &#8222;Skriptorium&#8220;,
+        <b>Ugo Ferrante</b>, ist auf <b>allen drei Bildern</b> zu sehen. Die Route führte rund um die Piazza
+        dell&#39;Anfiteatro und <b>nicht am Borgo vorbei</b>.</p>
+      <p style="text-align:right;margin:3px 0 0;line-height:1.1;"><span class="sig" style="font-size:19px;">G. Farnese</span>
+        <span style="font-size:9.5px;color:#777;">&nbsp;· Offizielle Festivalfotografin</span></p>
+    </div>
+  </div>
+  <div class="pin yellow" style="top:620px;left:508px;"></div>
+
+  <!-- ===== E: PAOLO — Visitenkarte + Zettel ===== -->
+  <div class="card" style="top:646px;left:576px;width:296px;transform:rotate(-2deg);">
+    <div style="padding:19px 14px 14px;">
+      <div class="bizcard">
+        <div class="n">ARTE MONTE CARLO</div>
+        <div class="s">CASA D'ASTE · DAL 1974</div>
+        <div class="c">arte-mc@gmx.de · Monte Carlo</div>
+      </div>
+      <div class="sticky" style="position:static;display:block;margin:12px -6px -2px 6px;transform:rotate(-2deg);font-size:16px;padding:9px 11px;">
+        Alibi prüfen: Mail ans Auktionshaus, Betreff „Alibi Paolo“. Antwort kommt sofort.
+      </div>
+    </div>
+  </div>
+  <div class="pin" style="top:634px;left:840px;"></div>
+
+  <!-- ===== F: BEHANDLUNGSPROTOKOLL ===== -->
+  <div class="card" style="top:636px;left:912px;width:386px;transform:rotate(2deg);">
+    <div class="doc" style="padding:16px 15px 11px;">
+      <div class="hd">Croce Rossa — Sanitätszelt Borgo</div>
+      <h3 style="margin-bottom:6px;">Behandlungsprotokoll</h3>
+      <div class="times">
+        <div><span>Patientin</span><b>I. CARRETTO</b></div>
+        <div><span>Eintreffen</span><b>21:05</b></div>
+        <div><span>Entlassung</span><b>22:40</b></div>
+      </div>
+      <p style="margin-top:8px;font-size:11.5px;">Kreislaufkollaps. Allein eingeliefert, durchgehend unter
+        Aufsicht auf Liege 2. Die Patientin hat das Zelt in dieser Zeit nicht verlassen und hatte keinen Besuch.</p>
+      <p style="text-align:right;margin:4px 0 0;line-height:1.1;"><span class="sig" style="font-size:20px;">M. Ricci</span>
+        <span style="font-size:9.5px;color:#777;">&nbsp;· Sanitäterin, im Dienst</span></p>
+    </div>
+  </div>
+  <div class="pin blue" style="top:624px;left:1256px;"></div>
+
+  <div class="tapebar bottom"><div class="edge" style="left:0"></div>
+    <span>ALIBI · GEPRÜFT · ALIBI · GEPRÜFT · ALIBI · GEPRÜFT · ALIBI · GEPRÜFT · ALIBI · GEPRÜFT · ALIBI</span>
+    <div class="edge" style="right:0"></div></div>
+  <div class="credit">Design-Entwurf v2.2 · Platzhalter-Grafiken (KI-Bilder folgen) · Fonts = Web-Ersatz</div>
+
+</div>
+</div></div>
+<script>
+
+  // Platzhalter-QR: erzeugt ein plausibles Muster (kein echter Code)
+  document.querySelectorAll('svg.qr').forEach(function(svg){
+    var n=25, seed=(+svg.dataset.seed||1)*7919, s=seed%233280;
+    function rnd(){ s=(s*9301+49297)%233280; return s/233280; }
+    var m=[]; for(var y=0;y<n;y++){ m[y]=[]; for(var x=0;x<n;x++) m[y][x]= rnd()>0.52?1:0; }
+    function finder(r,c){ for(var i=-1;i<8;i++) for(var j=-1;j<8;j++){
+      var y=r+i,x=c+j; if(y<0||x<0||y>=n||x>=n) continue;
+      var d=Math.max(Math.abs(i-3),Math.abs(j-3)); m[y][x]=(d<=1||d===3)?1:0; } }
+    finder(0,0); finder(0,n-7); finder(n-7,0);
+    for(var k=8;k<n-8;k++){ m[6][k]=k%2?0:1; m[k][6]=k%2?0:1; }
+    var w=+svg.getAttribute('width'), u=w/(n+2), out='';
+    out+='<rect width="'+w+'" height="'+w+'" fill="#fff"/>';
+    for(var y=0;y<n;y++) for(var x=0;x<n;x++) if(m[y][x])
+      out+='<rect x="'+((x+1)*u).toFixed(2)+'" y="'+((y+1)*u).toFixed(2)+'" width="'+(u+0.3).toFixed(2)+'" height="'+(u+0.3).toFixed(2)+'" fill="#111"/>';
+    svg.setAttribute('viewBox','0 0 '+w+' '+w);
+    svg.innerHTML=out;
+  });
+
+
+  function fit(){
+    var s=Math.min(1,(window.innerWidth-24)/1400);
+    var st=document.querySelector('.stage');
+    st.style.transform='scale('+s+')';
+    document.querySelector('.wrap').style.height=(990*s+20)+'px';
+  }
+  window.addEventListener('resize',fit); fit();
+
+</script>
+</body>
+</html>

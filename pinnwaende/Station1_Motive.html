@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mord um das Vermächtnis — Station 1 (Motive)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;700&family=Caveat:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#000; --green:#B4DC41; --yellow:#F5DC24;
+    --cork:#c79a5e; --paper:#fbf6ea; --ink:#1c1a17;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#2b2b2b;font-family:'Inter',Arial,sans-serif;}
+  .wrap{display:flex;justify-content:center;padding:10px;}
+  .stage{width:1400px;height:990px;transform-origin:top center;}
+  .poster{
+    position:relative;width:1400px;height:990px;overflow:hidden;
+    border:14px solid #1c130a;border-radius:6px;
+    background-color:var(--cork);
+    background-image:
+      radial-gradient(circle at 50% 38%, rgba(255,240,210,.18), rgba(0,0,0,0) 60%),
+      radial-gradient(circle at 12% 90%, rgba(0,0,0,.22), rgba(0,0,0,0) 55%),
+      radial-gradient(circle at 90% 12%, rgba(0,0,0,.20), rgba(0,0,0,0) 55%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+    background-blend-mode:normal,normal,normal,multiply;
+    box-shadow:inset 0 0 120px rgba(60,30,0,.45);
+  }
+  /* Absperrband */
+  .tapebar{position:absolute;left:-40px;width:1480px;height:46px;background:var(--yellow);
+    display:flex;align-items:center;overflow:hidden;box-shadow:0 3px 8px rgba(0,0,0,.35);z-index:6;}
+  .tapebar.top{top:34px;transform:rotate(-1.6deg);}
+  .tapebar.bottom{bottom:30px;transform:rotate(1.2deg);}
+  .tapebar span{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:6px;color:#111;
+    white-space:nowrap;opacity:.92;padding-right:26px;}
+  .tapebar .edge{position:absolute;top:0;height:100%;width:14px;
+    background:repeating-linear-gradient(90deg,#111 0 6px,transparent 6px 12px);opacity:.18;}
+  /* Kopf */
+  .logoplate{position:absolute;top:100px;left:48px;background:#000;padding:18px 24px;border-radius:8px;
+    transform:rotate(-2deg);box-shadow:0 10px 22px rgba(0,0,0,.45);z-index:5;
+    color:#fff;font-family:'Anton',sans-serif;font-size:22px;letter-spacing:2px;}
+  .logoplate img{display:block;height:56px;width:auto;}
+  .titleband{position:absolute;top:104px;left:340px;z-index:5;transform:rotate(-1deg);}
+  .titleband .kicker{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:5px;color:#2c1c06;
+    font-size:17px;margin:0 0 2px 6px;}
+  .titleband h1{font-family:'Anton',sans-serif;font-size:54px;line-height:.9;margin:0;color:#111;
+    text-shadow:2px 3px 0 var(--yellow);}
+  .titleband h1 .mot{color:#1c130a;-webkit-text-stroke:2px #111;}
+  .badge{position:absolute;top:92px;right:54px;width:124px;height:124px;border-radius:50%;
+    background:var(--green);color:#10210a;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    transform:rotate(8deg);box-shadow:0 8px 18px rgba(0,0,0,.4);border:4px dashed #10210a;z-index:5;}
+  .badge b{font-family:'Anton',sans-serif;font-size:44px;line-height:.9;}
+  .badge small{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:2px;font-size:13px;}
+  .casetag{position:absolute;top:240px;left:340px;background:#111;color:#eee;font-family:'Oswald',sans-serif;
+    font-weight:500;font-size:15px;letter-spacing:1px;padding:7px 14px;transform:rotate(-1deg);z-index:5;
+    box-shadow:0 6px 14px rgba(0,0,0,.35);}
+  .casetag b{color:var(--yellow);}
+  /* Grundbausteine */
+  .pin{position:absolute;width:24px;height:24px;border-radius:50%;z-index:8;
+    background:radial-gradient(circle at 34% 28%, #fff6, #d33 42%, #8c1410 75%);
+    box-shadow:0 5px 7px rgba(0,0,0,.45);}
+  .pin.blue{background:radial-gradient(circle at 34% 28%, #fff6, #3f7fd0 42%, #1d3f72 75%);}
+  .pin.green{background:radial-gradient(circle at 34% 28%, #fff6, #8cc63f 42%, #4e7d18 75%);}
+  .pin.yellow{background:radial-gradient(circle at 34% 28%, #fff8, #f3d23a 42%, #b48a10 75%);}
+  .card{position:absolute;z-index:3;background:var(--paper);border-radius:4px;
+    box-shadow:0 14px 26px rgba(0,0,0,.40);}
+  .doc{padding:20px 15px 13px;color:var(--ink);}
+  .doc .hd{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:1px;font-size:12px;
+    color:#7a1d18;text-transform:uppercase;}
+  .doc h3{font-family:'Oswald',sans-serif;font-weight:700;font-size:18px;margin:2px 0 7px;
+    text-transform:uppercase;letter-spacing:1px;}
+  .doc p{font-size:12px;line-height:1.42;margin:0 0 5px;}
+  .sig{font-family:'Caveat',cursive;font-weight:700;font-size:23px;color:#1a2b6b;
+    transform:rotate(-3deg);display:inline-block;}
+  .times{font-family:'Oswald',sans-serif;font-size:12px;color:#1c1a17;border-top:1px solid #d8ceb5;margin-top:6px;}
+  .times div{display:flex;justify-content:space-between;gap:10px;padding:2px 0;border-bottom:1px dotted #d8ceb5;}
+  /* Chat */
+  .phone{background:#0b141a;border-radius:20px;padding:10px 10px 10px;}
+  .phone .bar{display:flex;align-items:center;gap:8px;background:#1f2c33;border-radius:12px 12px 0 0;
+    padding:15px 10px 7px;margin:-10px -10px 0;}
+  .phone .ava{width:27px;height:27px;border-radius:50%;background:#3a4a52;display:flex;align-items:center;
+    justify-content:center;color:#cfe;font-weight:800;font-size:13px;}
+  .phone .who{color:#e9edef;font-size:12.5px;font-weight:600;}
+  .phone .who span{display:block;color:#8aa;font-size:10px;font-weight:400;}
+  .chat{background:#0b141a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%230b141a'/%3E%3Ccircle cx='8' cy='8' r='1' fill='%23ffffff10'/%3E%3C/svg%3E");
+    padding:7px 6px;display:flex;flex-direction:column;gap:4px;}
+  .b{max-width:87%;padding:5px 8px;border-radius:9px;font-size:11px;line-height:1.26;color:#e9edef;
+    box-shadow:0 1px 1px #0006;}
+  .b.in{background:#202c33;align-self:flex-start;border-top-left-radius:2px;}
+  .b.out{background:#005c4b;align-self:flex-end;border-top-right-radius:2px;}
+  .b .t{display:block;text-align:right;font-size:8.5px;color:#ffffff8a;margin-top:1px;}
+  .b.img{padding:5px;}
+  .b.img img,.b.img svg{display:block;border-radius:6px;}
+  .b.img .cp{font-size:11.5px;line-height:1.3;padding:4px 4px 1px;}
+  .vrow{display:flex;align-items:center;gap:8px;}
+  .play{width:28px;height:28px;border-radius:50%;background:#0b8f76;color:#fff;display:flex;
+    align-items:center;justify-content:center;font-size:12px;flex:none;}
+  .wave{flex:1;height:20px;background:repeating-linear-gradient(90deg,#9fb1ad 0 2px,transparent 2px 6px);
+    -webkit-mask:linear-gradient(90deg,#000 60%,#0006);mask:linear-gradient(90deg,#000 60%,#0006);border-radius:3px;}
+  /* QR */
+  .qrbox{background:#fff;padding:6px;border-radius:5px;display:inline-block;line-height:0;}
+  .qrbox .lab{display:block;font-family:'Oswald',sans-serif;font-size:8.5px;letter-spacing:.5px;
+    color:#333;text-align:center;padding-top:3px;line-height:1.1;}
+  /* Polaroid */
+  .polaroid{background:#fff;padding:7px 7px 20px;box-shadow:0 8px 16px rgba(0,0,0,.32);}
+  .polaroid .cap2{font-family:'Caveat',cursive;font-weight:700;font-size:17px;text-align:center;
+    color:#333;margin-top:5px;}
+  /* Fusszeile */
+  .legend{position:absolute;bottom:36px;left:50%;transform:translateX(-50%) rotate(-.6deg);background:#000;
+    color:#fff;padding:9px 20px;font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:1px;z-index:7;
+    box-shadow:0 8px 16px rgba(0,0,0,.45);}
+  .legend b{color:var(--green);}
+  .credit{position:absolute;bottom:6px;right:18px;font-size:11px;color:#2a1c08;
+    font-family:'Oswald',sans-serif;opacity:.6;z-index:6;}
+
+  /* ---- nur Station 1 ---- */
+  /* Notizbuch — aufgeschlagen, Ringbindung */
+  .book{position:relative;display:flex;width:100%;height:236px;border-radius:5px;overflow:hidden;
+    background:linear-gradient(180deg,#e3d9bc,#d5c9a6);box-shadow:0 12px 22px rgba(0,0,0,.30);}
+  .book .page{position:relative;height:100%;padding:16px 14px 12px;
+    background-color:#f8f3e4;
+    background-image:repeating-linear-gradient(0deg,transparent 0 21px,#cbbf9d 21px 22px);}
+  .book .page.l{width:58%;padding-right:20px;box-shadow:inset -18px 0 24px -14px rgba(90,70,35,.60);}
+  .book .page.r{width:42%;padding-left:22px;box-shadow:inset 18px 0 24px -14px rgba(90,70,35,.60);}
+  .book .rings{position:absolute;left:58%;top:9px;bottom:9px;width:30px;transform:translateX(-50%);
+    display:flex;flex-direction:column;justify-content:space-around;align-items:center;z-index:4;}
+  .book .rings i{display:block;width:28px;height:10px;border-radius:50%;
+    border:3px solid #a9a9a9;border-top-color:#ededed;border-bottom-color:#787878;
+    box-shadow:0 1px 2px rgba(0,0,0,.35);}
+  .book .hw{font-family:'Caveat',cursive;font-weight:700;font-size:18px;line-height:22px;color:#1e2a4a;
+    position:relative;z-index:2;white-space:nowrap;}
+  .book .hw .k{color:#7a1d18;}
+  /* Werbeflyer, der im Notizbuch liegt */
+  .flyer{position:absolute;right:-8px;bottom:-26px;width:138px;background:#fff;border-radius:4px;
+    padding:8px 8px 9px;transform:rotate(-5deg);z-index:6;box-shadow:0 12px 22px rgba(0,0,0,.40);}
+  .flyer .logo{font-family:'Anton',sans-serif;font-size:20px;line-height:1;text-align:center;letter-spacing:-.5px;}
+  .flyer .claim{background:#d8232a;color:#fff;font-family:'Oswald',sans-serif;font-weight:700;
+    font-size:9.5px;line-height:1.3;text-align:center;padding:5px 6px;margin:7px 0 8px;border-radius:3px;}
+  .flyer .qrwrap{display:flex;justify-content:center;line-height:0;}
+  .flyer .url{font-family:'Oswald',sans-serif;font-size:8.5px;letter-spacing:.6px;color:#555;
+    text-align:center;margin-top:6px;}
+  .bank .brow{display:flex;justify-content:space-between;gap:10px;font-family:'Oswald',sans-serif;
+    font-size:12px;padding:3px 0;border-bottom:1px dotted #d8ceb5;}
+  .bank .neg{color:#b00020;font-weight:700;white-space:nowrap;}
+  .bank .pos{color:#1c6b2b;font-weight:700;white-space:nowrap;}
+  .bank .saldo{display:flex;justify-content:space-between;font-family:'Oswald',sans-serif;font-size:14px;
+    font-weight:700;padding-top:5px;border-top:2px solid #1c1a17;margin-top:4px;}
+  .bank .memo{font-family:'Caveat',cursive;font-size:18px;color:#b00020;transform:rotate(-2deg);
+    display:inline-block;margin-top:5px;}
+  .envelope{width:100%;height:192px;background:linear-gradient(160deg,#d9c39a,#c7ad7e);border-radius:5px;
+    position:relative;overflow:hidden;}
+  .envelope .flap{position:absolute;top:-56px;left:0;width:100%;height:72px;
+    background:linear-gradient(160deg,#c2a878,#b39868);clip-path:polygon(0 100%,100% 100%,50% 0);}
+  .envelope .letterout{position:absolute;top:14px;left:16px;right:16px;height:94px;background:#fdfaf1;
+    box-shadow:0 4px 10px rgba(0,0,0,.3);padding:11px 13px;transform:rotate(-1.2deg);}
+  .envelope .letterout p{font-family:'Caveat',cursive;font-weight:700;font-size:19px;line-height:1.18;
+    color:#22201c;margin:0;}
+  .envelope .photocorner{position:absolute;bottom:8px;right:10px;background:#fff;padding:4px 4px 10px;
+    transform:rotate(6deg);box-shadow:0 6px 12px rgba(0,0,0,.35);z-index:4;}
+  .envelope .addr{position:absolute;bottom:14px;left:16px;font-family:'Oswald',sans-serif;font-size:10.5px;
+    color:#3a2f1c;line-height:1.35;}
+  .rstamp{position:absolute;font-family:'Oswald',sans-serif;font-weight:700;color:#b00020;
+    border:3px solid #b00020;padding:3px 8px;border-radius:5px;transform:rotate(-11deg);opacity:.85;
+    font-size:11.5px;letter-spacing:1px;text-transform:uppercase;text-align:center;line-height:1.15;z-index:5;}
+  .letter{background:#fdf8ec;padding:17px 15px 11px;}
+  .letter p{font-family:'Caveat',cursive;font-weight:700;font-size:16.5px;line-height:1.2;color:#1d1a15;margin:0 0 7px;}
+  .letter .end{color:#8c1410;}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="stage">
+<div class="poster">
+
+  <div class="tapebar top"><div class="edge" style="left:0"></div>
+    <span>TATORT · TATORT · TATORT · TATORT · TATORT · TATORT · TATORT · TATORT · TATORT · TATORT · TATORT · TATORT</span>
+    <div class="edge" style="right:0"></div></div>
+
+  <div class="logoplate"><img src="assets/hg-logo-white.svg" alt="HIDDEN GAMES"></div>
+  <div class="titleband">
+    <p class="kicker">MORD UM DAS VERMÄCHTNIS — POCKETFALL</p>
+    <h1>STATION 1<br><span class="mot">DIE MOTIVE</span></h1>
+  </div>
+  <div class="badge"><b>1</b><small>VON 2</small></div>
+  <div class="casetag">Tatort: <b>Skriptorium-Zelt</b> · Tatzeit <b>21:00–22:30</b> · Ermittlung: <b>Kommissar A. Gallo</b></div>
+
+  <!-- A: CAS -->
+  <div class="card" style="top:300px;left:56px;width:302px;transform:rotate(-2deg);">
+    <div class="phone">
+      <div class="bar"><div class="ava">AS</div><div class="who">Maestro Sentieri<span>gestern 19:47</span></div></div>
+      <div class="chat">
+        <div class="b in">Ich weiß, was du getan hast, Cas.<span class="t">19:41</span></div>
+        <div class="b out">Was meinst du?</div>
+        <div class="b in">Ich habe die Kassenbücher gesehen.</div>
+        <div class="b out">Ja und?</div>
+        <div class="b in">Ich habe sie auch überprüft und weiß, dass du in die eigene Tasche wirtschaftest.</div>
+        <div class="b out">Das kannst du niemals beweisen!</div>
+        <div class="b in">Ich würde nicht darauf wetten. Zahl es zurück, sonst melde ich dich bei der Festivalleitung!</div>
+        <div class="b out">Du kannst mich mal!<span class="t">19:47</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="pin" style="top:288px;left:326px;"></div>
+
+  <!-- B: NOTIZBUCH (aufgeschlagen) + DSCHIMAIL-FLYER -->
+  <div class="card" style="top:300px;left:378px;width:320px;transform:rotate(1.5deg);">
+    <div style="padding:12px;position:relative;">
+      <div class="book">
+        <div class="page l">
+          <div class="hw">Passwörter — nicht</div>
+          <div class="hw">vergessen!</div>
+          <div class="hw">&nbsp;</div>
+          <div class="hw"><span class="k">Mail:</span></div>
+          <div class="hw">aurelio.sentieri</div>
+          <div class="hw">@dschimail.com</div>
+          <div class="hw"><span class="k">PW:</span> Maestro</div>
+        </div>
+        <div class="page r"></div>
+        <div class="rings"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="flyer">
+        <div class="logo"><span style="color:#2b6ad0">D</span><span style="color:#d8232a">s</span><span style="color:#f2b90c">c</span><span style="color:#2b6ad0">h</span><span style="color:#1c9c4b">i</span><span style="color:#d8232a">m</span><span style="color:#2b6ad0">@</span><span style="color:#f2b90c">i</span><span style="color:#1c9c4b">l</span></div>
+        <div class="claim">Deine E-Mails von überall abrufen!</div>
+        <div class="qrwrap">
+          <!-- Echter QR-Code. Ziel: https://www.dschimail.com
+               Beim Aendern der URL muss assets/qr-dschimail.svg neu erzeugt werden. -->
+          <img src="assets/qr-dschimail.svg" width="84" height="84" alt="QR-Code www.dschimail.com">
+        </div>
+        <div class="url">www.dschimail.com</div>
+      </div>
+    </div>
+  </div>
+  <div class="pin yellow" style="top:288px;left:662px;"></div>
+
+  <!-- C: HANDBRIEF DER EHEFRAU -->
+  <div class="card" style="top:300px;left:706px;width:296px;transform:rotate(-2deg);">
+    <div class="letter">
+      <p>Du dreckiger Bastard.</p>
+      <p>Wie kannst du es wagen, uns — Lucida und mich — aus deinem Testament zu streichen?</p>
+      <p>Wir hatten eine Vereinbarung: Lucida malt für dich, und ich heirate dich, damit du dein Gesicht wahren kannst und niemand von deiner Krankheit erfährt. Du hast versprochen, uns dafür zu entlohnen.</p>
+      <p class="end">Na warte. Diese Entscheidung wirst du bereuen. Das lassen wir dir nicht durchgehen.</p>
+    </div>
+  </div>
+  <div class="pin" style="top:288px;left:970px;"></div>
+
+  <!-- D: LUCIDA & ILARIA -->
+  <div class="card" style="top:300px;left:1012px;width:334px;transform:rotate(1deg);">
+    <div class="phone">
+      <div class="bar"><div class="ava">IC</div><div class="who">Ilaria<span>heute 17:34</span></div></div>
+      <div class="chat">
+        <div class="b out img">
+          <svg width="170" height="84" viewBox="0 0 196 104">
+            <rect width="196" height="104" fill="#1d2b57"/>
+            <rect x="6" y="6" width="184" height="92" fill="none" stroke="#e1c36e" stroke-width="3"/>
+            <circle cx="98" cy="42" r="17" fill="#e1c36e"/>
+            <path d="M98 58c-17 0-25 26-25 40h50c0-14-8-40-25-40Z" fill="#c9a94f"/>
+            <path d="M98 16l5 15h-10Z" fill="#f4e6b8"/>
+            <text x="10" y="98" font-family="Oswald" font-size="9" fill="#ffffff99">Skriptorium-Zelt</text>
+          </svg>
+          <div class="cp">Ich kann es immer noch nicht glauben, dass ich so etwas Wunderschönes erschaffen habe.<span class="t">17:20</span></div>
+        </div>
+        <div class="b in">Du kannst so stolz auf dich sein ❤</div>
+        <div class="b in">Lucida, leider muss ich dir aber noch etwas sagen.</div>
+        <div class="b out">Was ist los?</div>
+        <div class="b in" style="max-width:97%;">
+          <div class="vrow"><div class="play">▶</div><div class="wave"></div><div class="qrbox" style="padding:4px;"><svg class="qr" data-seed="11" width="48" height="48"></svg></div></div>
+          <span class="t" style="text-align:left;color:#ffffffb0;">Sprachnachricht · zum Anhören scannen</span>
+        </div>
+        <div class="b out">Das ist nicht dein Ernst. Seit seiner Krankheit habe ich ein Dutzend Bilder für ihn gemalt — und so dankt er es mir. Das soll er büßen.</div>
+        <div class="b in">Wir überlegen uns etwas. Lass uns nachher treffen, dann konfrontieren wir meinen Ehemann gemeinsam.<span class="t">17:34</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="pin" style="top:288px;left:1312px;"></div>
+
+  <!-- E: ZURÜCKGESCHICKTER BRIEF -->
+  <div class="card" style="top:662px;left:176px;width:300px;transform:rotate(-2deg);">
+    <div class="envelope" style="height:202px;">
+      <div class="flap"></div>
+      <div class="letterout"><p>Papa, warum akzeptierst du mich nicht endlich als deine Tochter?</p></div>
+      <div class="photocorner">
+        <svg width="80" height="56" viewBox="0 0 110 78">
+          <rect width="110" height="78" fill="#cdb89a"/>
+          <circle cx="40" cy="30" r="12" fill="#7c6242"/><path d="M40 44c-12 0-17 18-17 34h34c0-16-5-34-17-34Z" fill="#7c6242"/>
+          <circle cx="72" cy="42" r="8" fill="#8a6f4d"/><path d="M72 52c-8 0-11 14-11 26h22c0-12-3-26-11-26Z" fill="#8a6f4d"/>
+        </svg>
+      </div>
+      <div class="rstamp" style="top:120px;left:14px;">Annahme verweigert<br><span style="font-size:9px;">Rücksendung an Absender</span></div>
+      <div class="addr" style="bottom:8px;left:16px;">An: Maestro A. Sentieri<br>Absender: <b>Elisa Baciocchi</b></div>
+    </div>
+  </div>
+  <div class="pin blue" style="top:650px;left:444px;"></div>
+
+  <!-- F: KONTOAUSZUG -->
+  <div class="card" style="top:646px;left:556px;width:296px;transform:rotate(2deg);">
+    <div class="doc bank" style="padding-bottom:12px;">
+      <div class="hd">Banca di Lucca</div>
+      <h3 style="margin-bottom:3px;">Kontoauszug</h3>
+      <div style="font-family:'Oswald',sans-serif;font-size:12.5px;color:#3a3227;margin:0 0 9px;">Kontoinhaber: <b>Paolo Guinigi</b></div>
+      <div class="brow"><span>Alter Saldo</span><span class="neg">− 316.680,00 €</span></div>
+      <div class="brow"><span>29.10. Rückzahlung Darlehen</span><span class="neg">− 18.000,00</span></div>
+      <div class="brow" style="background:#f3edd8;"><span><b>30.10. Anzahlung „Il Lascito“</b></span><span class="pos">+ 250.000,00</span></div>
+      <div class="saldo"><span>Neuer Saldo</span><span class="neg">− 84.680,00 €</span></div>
+      <div class="memo">„Zweite Anzahlung folgt“ ✓</div>
+    </div>
+  </div>
+  <div class="pin yellow" style="top:634px;left:820px;"></div>
+
+  <div class="tapebar bottom"><div class="edge" style="left:0"></div>
+    <span>MOTIVE · BEWEISE · MOTIVE · BEWEISE · MOTIVE · BEWEISE · MOTIVE · BEWEISE · MOTIVE · BEWEISE · MOTIVE</span>
+    <div class="edge" style="right:0"></div></div>
+  <div class="credit">Design-Entwurf v2.2 · Dschimail-QR echt · Sprachnachricht-QR = Platzhalter · KI-Bilder folgen</div>
+
+</div>
+</div></div>
+<script>
+
+  // Platzhalter-QR: erzeugt ein plausibles Muster (kein echter Code)
+  document.querySelectorAll('svg.qr').forEach(function(svg){
+    var n=25, seed=(+svg.dataset.seed||1)*7919, s=seed%233280;
+    function rnd(){ s=(s*9301+49297)%233280; return s/233280; }
+    var m=[]; for(var y=0;y<n;y++){ m[y]=[]; for(var x=0;x<n;x++) m[y][x]= rnd()>0.52?1:0; }
+    function finder(r,c){ for(var i=-1;i<8;i++) for(var j=-1;j<8;j++){
+      var y=r+i,x=c+j; if(y<0||x<0||y>=n||x>=n) continue;
+      var d=Math.max(Math.abs(i-3),Math.abs(j-3)); m[y][x]=(d<=1||d===3)?1:0; } }
+    finder(0,0); finder(0,n-7); finder(n-7,0);
+    for(var k=8;k<n-8;k++){ m[6][k]=k%2?0:1; m[k][6]=k%2?0:1; }
+    var w=+svg.getAttribute('width'), u=w/(n+2), out='';
+    out+='<rect width="'+w+'" height="'+w+'" fill="#fff"/>';
+    for(var y=0;y<n;y++) for(var x=0;x<n;x++) if(m[y][x])
+      out+='<rect x="'+((x+1)*u).toFixed(2)+'" y="'+((y+1)*u).toFixed(2)+'" width="'+(u+0.3).toFixed(2)+'" height="'+(u+0.3).toFixed(2)+'" fill="#111"/>';
+    svg.setAttribute('viewBox','0 0 '+w+' '+w);
+    svg.innerHTML=out;
+  });
+
+
+  function fit(){
+    var s=Math.min(1,(window.innerWidth-24)/1400);
+    var st=document.querySelector('.stage');
+    st.style.transform='scale('+s+')';
+    document.querySelector('.wrap').style.height=(990*s+20)+'px';
+  }
+  window.addEventListener('resize',fit); fit();
+
+</script>
+</body>
+</html>
