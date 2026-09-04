@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mord um das Vermächtnis · Hidden Games Demo-Fall</title>
+<meta name="description" content="Demo-Fall für Lucca Comics &amp; Games 2026 — Entwicklungsfassung.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Open+Sans:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#000000;
+    --surface:#141414;
+    --surface-2:#1a1a1a;
+    --line:#2a2a2a;
+    --green:#B4DC41;
+    --yellow:#F5DC24;
+    --white:#ffffff;
+    --muted:#a3a3a3;
+    --red:#b92120;
+    --maxw:760px;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--black);
+    color:var(--white);
+    font-family:"Open Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  h1,h2,h3{font-family:"Oswald",Impact,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1.08;margin:0}
+  a{color:var(--green)}
+  .eyebrow{font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;color:var(--green);margin:0 0 .7rem}
+  .hand{font-family:"Caveat",cursive;color:var(--green);font-size:1.4rem;line-height:1.3}
+  .hl{color:var(--green)}
+
+  /* ---------- Develop-Banner ---------- */
+  .devbar{
+    background:repeating-linear-gradient(135deg,var(--yellow) 0 14px,#0a0a0a 14px 28px);
+    padding:3px 0;
+  }
+  .devbar__inner{
+    background:var(--black);text-align:center;
+    font-family:"Oswald",sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.18em;font-size:.68rem;color:var(--yellow);
+    padding:7px 14px;
+  }
+
+  /* ---------- Header ---------- */
+  header{padding:34px 0 0;text-align:center}
+  .logo{width:150px;height:auto;opacity:.95}
+  .hero{padding:26px 0 42px;text-align:center;border-bottom:1px solid var(--line)}
+  .hero h1{font-size:clamp(2.1rem,9vw,3.6rem)}
+  .hero__sub{
+    font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;
+    letter-spacing:.13em;font-size:.8rem;color:var(--muted);margin:14px 0 0;
+  }
+  .hero__hand{margin-top:18px}
+
+  /* ---------- Sections ---------- */
+  section{padding:46px 0;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:0}
+  section h2{font-size:clamp(1.4rem,5.5vw,2rem);margin-bottom:18px}
+  p{margin:0 0 1rem}
+  p:last-child{margin-bottom:0}
+
+  /* ---------- Kommissar ---------- */
+  .kommissar{
+    background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--green);
+    border-radius:14px;padding:24px 22px;
+  }
+  .kommissar__head{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .kommissar__name{font-family:"Oswald",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:1.05rem}
+  .kommissar__role{font-size:.82rem;color:var(--muted);letter-spacing:.02em}
+  .kommissar__sig{margin-top:18px;font-family:"Caveat",cursive;color:var(--green);font-size:1.55rem;line-height:1.2}
+
+  /* ---------- Falldaten ---------- */
+  .facts{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .facts li{background:var(--surface);padding:13px 18px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
+  .facts dt,.facts .k{
+    font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;
+    letter-spacing:.1em;font-size:.68rem;color:var(--green);flex:0 0 168px;
+  }
+  .facts .v{flex:1 1 200px;font-size:.98rem}
+
+  /* ---------- Verdächtige ---------- */
+  .suspects{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+  .suspect{
+    background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    padding:14px 16px;display:flex;gap:16px;align-items:center;
+  }
+  .suspect__img{
+    flex:0 0 96px;width:96px;aspect-ratio:3/4;border-radius:10px;
+    border:2px dashed #454545;background:var(--surface-2);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;gap:4px;padding:6px;
+  }
+  .suspect__img span{font-family:"Oswald",sans-serif;font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:#6d6d6d;line-height:1.25}
+  .suspect__img code{font-size:.5rem;color:#4f4f4f;word-break:break-all;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .suspect__body{flex:1 1 auto;min-width:0}
+  .suspect__name{font-family:"Oswald",sans-serif;font-weight:700;text-transform:uppercase;font-size:1.2rem;letter-spacing:.03em;margin:0 0 5px}
+  .suspect__meta{font-size:.78rem;color:var(--green);font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.1em;margin:0}
+
+  /* ---------- Stationen-Hinweis ---------- */
+  .stations{display:grid;gap:12px;grid-template-columns:1fr}
+  .station{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .station__no{font-family:"Oswald",sans-serif;font-weight:700;color:var(--green);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px}
+  .station__title{font-family:"Oswald",sans-serif;font-weight:700;text-transform:uppercase;font-size:1.05rem;letter-spacing:.03em;margin-bottom:5px}
+  .station p{font-size:.93rem;color:#d2d2d2;margin:0}
+
+  /* ---------- Lösung ---------- */
+  .solve{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px 22px}
+  label.solve__label{display:block;font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.11em;font-size:.72rem;color:var(--green);margin-bottom:9px}
+  select{
+    width:100%;appearance:none;-webkit-appearance:none;
+    background:var(--black) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9'><path d='M1 1l6 6 6-6' fill='none' stroke='%23B4DC41' stroke-width='2'/></svg>") no-repeat right 18px center;
+    color:var(--white);border:1px solid #3a3a3a;border-radius:10px;
+    padding:14px 46px 14px 16px;font-family:"Open Sans",sans-serif;font-size:1rem;
+  }
+  select:focus{outline:2px solid var(--green);outline-offset:2px}
+  .btn{
+    display:inline-block;border:0;cursor:pointer;border-radius:9999px;
+    font-family:"Oswald",sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.1em;font-size:.86rem;padding:14px 30px;
+  }
+  .btn--primary{background:var(--green);color:var(--black)}
+  .btn--primary:disabled{background:#3a3a3a;color:#777;cursor:not-allowed}
+  .btn--ghost{background:transparent;color:var(--white);border:1px solid #4a4a4a;padding:11px 22px;font-size:.76rem}
+  .solve__actions{margin-top:18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+  .verdict{margin-top:22px;border-radius:12px;padding:20px;border:1px solid var(--line);background:var(--black)}
+  .verdict--right{border-color:var(--green);border-left:4px solid var(--green)}
+  .verdict--wrong{border-color:#5a2a2a;border-left:4px solid var(--red)}
+  .verdict__head{font-family:"Oswald",sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:1.25rem;margin:0 0 10px}
+  .verdict--right .verdict__head{color:var(--green)}
+  .verdict--wrong .verdict__head{color:#e06462}
+  .verdict p{font-size:.96rem}
+
+  .reveal h3{font-size:.74rem;letter-spacing:.14em;color:var(--green);margin:22px 0 8px;font-weight:500}
+  .reveal h3:first-of-type{margin-top:18px}
+  .reveal ul{margin:0;padding-left:20px;font-size:.94rem;color:#dcdcdc}
+  .reveal ul li{margin-bottom:7px}
+  /* ---------- Hinweisstufen ---------- */
+  .hints{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .hints__label{font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.11em;font-size:.72rem;color:var(--green);margin:0 0 8px}
+  .hints__text{font-size:.92rem;color:#bdbdbd;margin:0}
+  .hints__actions{margin-top:16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .hints__stage{font-family:"Oswald",sans-serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#7c7c7c}
+  #hintbox{margin-top:16px;display:grid;gap:12px}
+  .hint{background:var(--black);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:10px;padding:15px 17px}
+  .hint__no{font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.13em;font-size:.66rem;color:var(--green);margin-bottom:6px}
+  .hint > p{font-size:.94rem;margin:0 0 .6rem}
+  .hint > p:last-child{margin-bottom:0}
+  .hint .reveal p{font-size:.94rem;margin:0 0 .9rem}
+
+  .reveal .close{
+    margin-top:20px;padding-top:16px;border-top:1px solid var(--line);
+    font-family:"Caveat",cursive;color:var(--green);font-size:1.4rem;line-height:1.3
+  }
+
+  footer{padding:34px 0 46px;text-align:center;color:#666;font-size:.76rem;letter-spacing:.04em}
+  footer code{color:#7a7a7a;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem}
+
+  @media (min-width:620px){
+    .stations{grid-template-columns:1fr 1fr}
+    .suspect__img{flex-basis:120px;width:120px}
+  }
+  @media (max-width:420px){
+    .facts .k{flex:1 1 100%}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ DEVELOP-KENNZEICHNUNG (vor Livegang entfernen) ============ -->
+<div class="devbar"><div class="devbar__inner">Entwicklungsfassung · interner Test · nicht veröffentlichen</div></div>
+
+<header>
+  <div class="wrap">
+    <img class="logo" src="assets/hidden-games-logo-white.svg" alt="Hidden Games">
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <p class="eyebrow">Demo-Fall · Lucca Comics &amp; Games 2026</p>
+    <h1>Mord um<br>das <span class="hl">Vermächtnis</span></h1>
+    <p class="hero__sub">Ein Kriminalfall von Hidden Games</p>
+    <p class="hand hero__hand">Sechs Verdächtige. Nur einer hat es getan.</p>
+  </div>
+
+  <!-- ============ BEGRÜSSUNG KOMMISSAR ============ -->
+  <section id="kommissar">
+    <p class="eyebrow">Nachricht des Ermittlers</p>
+    <div class="kommissar">
+      <!-- Von Kommissar Gallo gibt es bewusst kein Porträt. Kein Bildplatzhalter hier. -->
+      <div class="kommissar__head">
+        <div class="kommissar__name">Kommissar Angelo Gallo</div>
+        <div class="kommissar__role">Mordkommission · derzeit als Besucher in Lucca</div>
+      </div>
+      <p>Liebe Privatdetektive,</p>
+      <p>auch in meiner Freizeit komme ich offenbar nicht um Mordfälle herum. Ich bin eigentlich nur als
+      Besucher hier beim Festival — und nun das: <strong>der Maestro wurde tot aufgefunden.</strong></p>
+      <p>Die Kollegen vor Ort sind wegen des Festivals völlig überlastet, also übernehme ich. Aber allein
+      schaffe ich das nicht: <strong>Bitte helfen Sie mir.</strong></p>
+      <p>Sehen Sie sich die <span class="hl">Motive</span> und die <span class="hl">Alibis</span> genau an
+      und finden Sie heraus, wer den Maestro auf dem Gewissen hat. Ganz unten auf dieser Seite können Sie
+      mir Ihren Verdacht mitteilen.</p>
+      <p class="kommissar__sig">Auf Ihre Hilfe zählend —<br>A. Gallo</p>
+    </div>
+  </section>
+
+  <!-- ============ FALLDATEN ============ -->
+  <section id="falldaten">
+    <h2>Die Falldaten</h2>
+    <ul class="facts">
+      <li><span class="k">Opfer</span><span class="v">Maestro Aurelio Sentieri, 68 Jahre</span></li>
+      <li><span class="k">Beruf</span><span class="v">Maler · Ehrengast des Festivals</span></li>
+      <li><span class="k">Tatnacht</span><span class="v">Samstag, 31. Oktober 2026</span></li>
+      <li><span class="k">Tatzeitfenster</span><span class="v">21:00 – 22:30 Uhr</span></li>
+      <li><span class="k">Fundort</span><span class="v">Skriptorium-Zelt im Borgo della Leggenda</span></li>
+      <li><span class="k">Todesursache</span><span class="v">Stumpfe Gewalteinwirkung, Schlag gegen den Kopf</span></li>
+      <li><span class="k">Tatwaffe</span><span class="v">Marmor-Tintenfass, am Tatort gefunden</span></li>
+      <li><span class="k">Auffälligkeit</span><span class="v">Vitrine aufgebrochen, „Il Lascito“ fehlt</span></li>
+      <li><span class="k">Ermittler</span><span class="v">Kommissar Angelo Gallo</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ VERDÄCHTIGE ============ -->
+  <section id="verdaechtige">
+    <h2>Die sechs Verdächtigen</h2>
+    <p style="color:#c9c9c9;font-size:.96rem">Diese sechs Personen waren in der Tatnacht auf dem
+    Festivalgelände. Was jede von ihnen mit dem Maestro zu tun hatte, finden Sie an den Stationen heraus.</p>
+
+    <!-- Bewusst nur Name, Alter und Funktion: keine Motive, keine Beweismittel, keine Andeutungen.
+         Alles Weitere gehört auf Station 1 und 2. -->
+    <ul class="suspects">
+
+      <li class="suspect">
+        <div class="suspect__img"><span>Bild folgt</span><code>assets/verdaechtige/lucida.jpg</code></div>
+        <div class="suspect__body">
+          <p class="suspect__name">Lucida Mansi</p>
+          <p class="suspect__meta">32 Jahre · Schülerin des Maestro</p>
+        </div>
+      </li>
+
+      <li class="suspect">
+        <div class="suspect__img"><span>Bild folgt</span><code>assets/verdaechtige/ilaria.jpg</code></div>
+        <div class="suspect__body">
+          <p class="suspect__name">Ilaria Carretto</p>
+          <p class="suspect__meta">34 Jahre · Ehefrau des Maestro</p>
+        </div>
+      </li>
+
+      <li class="suspect">
+        <div class="suspect__img"><span>Bild folgt</span><code>assets/verdaechtige/elisa.jpg</code></div>
+        <div class="suspect__body">
+          <p class="suspect__name">Elisa Baciocchi</p>
+          <p class="suspect__meta">36 Jahre · Festival-Mitarbeiterin, Ticketstand</p>
+        </div>
+      </li>
+
+      <li class="suspect">
+        <div class="suspect__img"><span>Bild folgt</span><code>assets/verdaechtige/cas.jpg</code></div>
+        <div class="suspect__body">
+          <p class="suspect__name">Castruccio „Cas“ Castracani</p>
+          <p class="suspect__meta">52 Jahre · Sicherheitschef des Borgo</p>
+        </div>
+      </li>
+
+      <li class="suspect">
+        <div class="suspect__img"><span>Bild folgt</span><code>assets/verdaechtige/paolo.jpg</code></div>
+        <div class="suspect__body">
+          <p class="suspect__name">Paolo Guinigi</p>
+          <p class="suspect__meta">45 Jahre · Kunsthändler</p>
+        </div>
+      </li>
+
+      <li class="suspect">
+        <div class="suspect__img"><span>Bild folgt</span><code>assets/verdaechtige/ugo.jpg</code></div>
+        <div class="suspect__body">
+          <p class="suspect__name">Ugo Ferrante</p>
+          <p class="suspect__meta">31 Jahre · Geselle in der Werkstatt</p>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <!-- ============ STATIONEN ============ -->
+  <section id="stationen">
+    <h2>Ihr Ermittlungsauftrag</h2>
+    <div class="stations">
+      <div class="station">
+        <div class="station__no">Station 1</div>
+        <div class="station__title">Die Motive</div>
+        <p>Wer hatte einen Grund, den Maestro zu töten? Prüfen Sie jedes Schriftstück an der Pinnwand —
+        auch das, was Ihnen zunächst nebensächlich erscheint.</p>
+      </div>
+      <div class="station">
+        <div class="station__no">Station 2</div>
+        <div class="station__title">Die Alibis</div>
+        <p>Wo war jede und jeder zwischen 21:00 und 22:30 Uhr? Lesen Sie die Belege genau. Nicht jeder
+        hält, was er verspricht.</p>
+      </div>
+    </div>
+    <p class="hand" style="margin-top:20px">Jemand hier lügt mir ins Gesicht. Finden Sie heraus, wer.</p>
+  </section>
+
+  <!-- ============ LÖSUNG ============ -->
+  <section id="loesung">
+    <h2>Ihr Verdacht</h2>
+    <p style="color:#c9c9c9;font-size:.96rem">Sie haben alle Motive und Alibis geprüft? Dann nennen Sie
+    Kommissar Gallo Ihren Täter.</p>
+
+    <div class="solve">
+      <label class="solve__label" for="taeter">Wer hat den Maestro umgebracht?</label>
+      <select id="taeter">
+        <option value="" selected>— Bitte auswählen —</option>
+        <option value="lucida">Lucida Mansi</option>
+        <option value="ilaria">Ilaria Carretto</option>
+        <option value="elisa">Elisa Baciocchi</option>
+        <option value="cas">Castruccio „Cas“ Castracani</option>
+        <option value="paolo">Paolo Guinigi</option>
+        <option value="ugo">Ugo Ferrante</option>
+      </select>
+
+      <div class="solve__actions">
+        <button class="btn btn--primary" id="btn-check" disabled>Verdacht bestätigen</button>
+        <button class="btn btn--ghost" id="btn-reset" hidden>Neu versuchen</button>
+        <!-- Nur für interne Tests — vor Livegang entfernen: -->
+        <button class="btn btn--ghost" id="btn-dev">Auflösung anzeigen (intern)</button>
+      </div>
+
+      <div id="verdict" hidden></div>
+    </div>
+
+    <!-- Hinweisstufen: sanfter Tipp → deutlicher Tipp → Auflösung -->
+    <div class="hints">
+      <p class="hints__label">Sie kommen nicht weiter?</p>
+      <p class="hints__text">Ich gebe Ihnen ungern etwas vor. Aber lieber ein Schubs von mir, als dass
+      dieser Fall ungelöst bleibt.</p>
+      <div id="hintbox" hidden></div>
+      <div class="hints__actions">
+        <button class="btn btn--ghost" id="btn-hint">Hinweis anfordern</button>
+        <span class="hints__stage" id="hint-stage">Stufe 0 von 3</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    Hidden Games · Demo-Fall „Mord um das Vermächtnis“<br>
+    <code>develop · Stand 04.09.2026 · v0.6 (DE)</code>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var TAETER = "lucida";
+
+  var NAMEN = {
+    lucida: "Lucida Mansi",
+    ilaria: "Ilaria Carretto",
+    elisa:  "Elisa Baciocchi",
+    cas:    "Castruccio „Cas“ Castracani",
+    paolo:  "Paolo Guinigi",
+    ugo:    "Ugo Ferrante"
+  };
+
+  /* Bei einem Fehlversuch: Zeigefinger auf den richtigen Beleg, ohne dessen Inhalt zu verraten.
+     Die eigentliche Beweisführung steckt in den Hinweisstufen weiter unten. */
+  var HINWEISE = {
+    ilaria: "Für sie liegt ein Behandlungsprotokoll aus dem Sanitätszelt vor. Lesen Sie es bis zum Ende — der letzte Satz sagt mehr, als er auf den ersten Blick verrät.",
+    elisa:  "Ihr eigener Schichtplan beweist nichts. Aber unter dem Foto steht noch etwas.",
+    cas:    "Fragen Sie sich, wer dieses Kamerastandbild verschickt hat — und sehen Sie sich die beiden Uhrzeiten an.",
+    paolo:  "Sein Alibi bestätigt eine Stelle, die nichts von ihm will. Und überlegen Sie, was der Tod des Malers für einen Käufer bedeutet, der schon angezahlt hat.",
+    ugo:    "Drei Aufnahmen, drei Uhrzeiten, drei Orte. Zeichnen Sie die Route auf der Karte nach."
+  };
+
+  /* Hinweisstufen: sanfter Tipp → deutlicher Tipp → Auflösung */
+  var STUFEN = [
+    {
+      titel: "Sanfter Tipp",
+      text: "Ein Motiv hat jede der sechs Personen — daran kommen Sie nicht weiter. Der Unterschied liegt bei den Alibis. Sehen Sie sich zu jedem Beleg nicht nur an, <em>was</em> darauf steht, sondern <strong>wer ihn ausgestellt hat</strong>."
+    },
+    {
+      titel: "Deutlicher Tipp",
+      text: "Fünf Belege stammen von unbeteiligten Dritten: der Sicherheitsleitung, den Sanitätern, fremden Besuchern, der Festivalfotografin und einem Auktionshaus. <strong>Eine Person legt gar nichts vor</strong> und beruft sich nur auf eine Zeugin. Lesen Sie jetzt das Behandlungsprotokoll aus dem Sanitätszelt genau — vor allem den Satz darüber, ob die Patientin in dieser Zeit Besuch hatte."
+    },
+    {
+      titel: "Die Auflösung",
+      text: null /* wird durch loesungHTML() ersetzt */
+    }
+  ];
+
+  var sel      = document.getElementById("taeter");
+  var btn      = document.getElementById("btn-check");
+  var btnRe    = document.getElementById("btn-reset");
+  var btnDev   = document.getElementById("btn-dev");
+  var box      = document.getElementById("verdict");
+  var btnHint  = document.getElementById("btn-hint");
+  var hintBox  = document.getElementById("hintbox");
+  var hintTag  = document.getElementById("hint-stage");
+
+  var versuche = 0;
+  var stufe    = 0;
+
+  function loesungHTML() {
+    return '' +
+      '<div class="reveal">' +
+      '<h3>Das Motiv</h3>' +
+      '<p>Der Maestro konnte seit Jahren nicht mehr selbst malen. Um sein Ansehen zu wahren, traf er eine ' +
+      'Vereinbarung: <strong>Lucida malte unter seinem Namen</strong>, und <strong>Ilaria heiratete ihn als ' +
+      'Fassade</strong>. Entlohnt werden sollten beide über das Testament.</p>' +
+      '<p>Am Tag vor seinem Tod wies er den Notar an, beide zu enterben — alles sollte an das Festival gehen. ' +
+      'Ilaria entdeckte diese Mail (die Zugangsdaten lagen offen in seinem Notizbuch) und schrieb Lucida. ' +
+      'Zwölf Bilder hatte Lucida für ihn gemalt. Und dafür nun: nichts.</p>' +
+
+      '<h3>Der Tatabend</h3>' +
+      '<ul>' +
+      '<li>Die beiden Frauen verabreden sich, den Maestro <strong>gemeinsam</strong> zur Rede zu stellen.</li>' +
+      '<li>Gegen 20:50 Uhr bricht Ilaria zusammen. Ab <strong>21:05 Uhr</strong> liegt sie im Sanitätszelt der ' +
+      'Croce Rossa — <strong>ohne Begleitung</strong> und durchgehend unter Aufsicht bis 22:40 Uhr.</li>' +
+      '<li><strong>Lucida geht allein.</strong> Aus der Aussprache wird ein Streit.</li>' +
+      '<li>Sie erschlägt ihn mit dem Marmor-Tintenfass und nimmt „Il Lascito“ an sich — das Bild, das sie ' +
+      'selbst gemalt hat.</li>' +
+      '</ul>' +
+
+      '<h3>Warum die anderen ausscheiden</h3>' +
+      '<ul>' +
+      '<li><strong>Cas:</strong> Kamerastandbilder der Festival-Sicherheitsleitung, 20:44 bis 23:06 Uhr ohne Unterbrechung im Bild.</li>' +
+      '<li><strong>Ilaria:</strong> Behandlungsprotokoll der Croce Rossa, 21:05 bis 22:40 Uhr unter Aufsicht.</li>' +
+      '<li><strong>Elisa:</strong> Kommentare fremder Besucher unter ihrem Beitrag, 21:44 und 22:20 Uhr am Ticketstand.</li>' +
+      '<li><strong>Ugo:</strong> Drei Fotos der Festivalfotografin, 21:18, 21:52 und 22:24 Uhr — Route rund um die Piazza dell’Anfiteatro.</li>' +
+      '<li><strong>Paolo:</strong> Das Auktionshaus bestätigt, dass er die Benefiz-Auktion moderiert hat.</li>' +
+      '</ul>' +
+
+      '<h3>Der entscheidende Punkt</h3>' +
+      '<p>Fünf Belege stammen von unbeteiligten Dritten. <strong>Lucida legt nichts vor</strong> — auf ihrer ' +
+      'Vernehmungsaufzeichnung beruft sie sich allein auf Ilaria, ohne einen einzigen Beleg von dritter Seite. Doch ' +
+      'Ilarias Protokoll entlastet Ilaria und entzieht Lucida damit die Zeugin: <strong>ab 21:05 Uhr war ' +
+      'Ilaria allein.</strong> Sie kann für niemanden bürgen.</p>' +
+      '<p>Bleibt eine Person mit Motiv und ohne Alibi.</p>' +
+
+      '<div class="close">Danke für Ihre Hilfe. Ohne Sie wäre ich in diesem Trubel nicht weit gekommen. — A. Gallo</div>' +
+      '</div>';
+  }
+
+  function zeigeRichtig() {
+    box.className = "verdict verdict--right";
+    box.innerHTML = '<p class="verdict__head">Richtig — Lucida Mansi</p>' +
+      '<p>Sie haben es. Lucida Mansi hat den Maestro getötet. Und das ist der Grund:</p>' +
+      loesungHTML();
+    box.hidden = false;
+    btnRe.hidden = true;
+    btn.disabled = true;
+    /* Auflösung ist raus — die Hinweisstufen braucht niemand mehr. */
+    stufe = STUFEN.length;
+    btnHint.hidden = true;
+    hintTag.textContent = "Fall gelöst";
+  }
+
+  function zeigeFalsch(key) {
+    box.className = "verdict verdict--wrong";
+    var h = HINWEISE[key] ? '<p><strong>Ein Hinweis:</strong> ' + HINWEISE[key] + '</p>' : '';
+    box.innerHTML = '<p class="verdict__head">Leider falsch</p>' +
+      '<p>' + NAMEN[key] + ' war es nicht. Diese Person hat ein Alibi, das sich überprüfen lässt.</p>' +
+      h +
+      '<p style="color:#a3a3a3;font-size:.86rem">Fehlversuche: ' + versuche + '</p>';
+    box.hidden = false;
+    btnRe.hidden = false;
+  }
+
+  sel.addEventListener("change", function () {
+    btn.disabled = !sel.value;
+  });
+
+  btn.addEventListener("click", function () {
+    if (!sel.value) { return; }
+    if (sel.value === TAETER) {
+      zeigeRichtig();
+    } else {
+      versuche += 1;
+      zeigeFalsch(sel.value);
+    }
+    box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  btnRe.addEventListener("click", function () {
+    box.hidden = true;
+    box.innerHTML = "";
+    sel.value = "";
+    btn.disabled = true;
+    btnRe.hidden = true;
+    sel.focus();
+  });
+
+  /* ---------- Hinweisstufen ---------- */
+  function stufeBeschriftung() {
+    if (stufe >= STUFEN.length) {
+      btnHint.hidden = true;
+      hintTag.textContent = "Alle Hinweise abgerufen";
+      return;
+    }
+    btnHint.textContent = (stufe === 0) ? "Hinweis anfordern"
+                        : (stufe === 1) ? "Noch ein Hinweis"
+                        : "Auflösung anzeigen";
+    hintTag.textContent = "Stufe " + stufe + " von " + STUFEN.length;
+  }
+
+  btnHint.addEventListener("click", function () {
+    if (stufe >= STUFEN.length) { return; }
+    var s = STUFEN[stufe];
+    var el = document.createElement("div");
+    el.className = "hint";
+
+    if (s.text === null) {
+      /* Letzte Stufe: die vollständige Auflösung. */
+      el.innerHTML = '<div class="hint__no">Stufe ' + (stufe + 1) + ' · ' + s.titel + '</div>' +
+        '<p><strong>Lucida Mansi</strong> hat den Maestro getötet.</p>' + loesungHTML();
+      btn.disabled = true;
+      btnRe.hidden = true;
+    } else {
+      el.innerHTML = '<div class="hint__no">Stufe ' + (stufe + 1) + ' · ' + s.titel + '</div>' +
+        '<p>' + s.text + '</p>';
+    }
+
+    hintBox.appendChild(el);
+    hintBox.hidden = false;
+    stufe += 1;
+    stufeBeschriftung();
+    el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  stufeBeschriftung();
+
+  /* Nur für interne Tests — vor Livegang entfernen. */
+  btnDev.addEventListener("click", function () {
+    sel.value = TAETER;
+    btn.disabled = false;
+    zeigeRichtig();
+    box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+})();
+</script>
+
+</body>
+</html>

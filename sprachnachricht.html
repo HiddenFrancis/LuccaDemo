@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Sprachnachricht · Mord um das Vermächtnis</title>
+<meta name="description" content="Sprachnachricht aus dem Demo-Fall „Mord um das Vermächtnis“ — Entwicklungsfassung.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Open+Sans:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#000000; --surface:#141414; --surface-2:#1a1a1a; --line:#2a2a2a;
+    --green:#B4DC41; --yellow:#F5DC24; --white:#ffffff; --muted:#a3a3a3; --maxw:560px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--black);color:var(--white);
+    font-family:"Open Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;
+    min-height:100vh;display:flex;flex-direction:column}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px;width:100%}
+  h1{font-family:"Oswald",Impact,sans-serif;font-weight:700;text-transform:uppercase;
+    letter-spacing:.02em;line-height:1.08;margin:0;font-size:clamp(1.7rem,7vw,2.4rem)}
+  a{color:var(--green)}
+  .eyebrow{font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;
+    letter-spacing:.16em;font-size:.72rem;color:var(--green);margin:0 0 .7rem}
+  .hand{font-family:"Caveat",cursive;color:var(--green);font-size:1.35rem;line-height:1.3}
+
+  /* Develop-Kennzeichnung (vor Livegang entfernen) */
+  .devbar{background:repeating-linear-gradient(135deg,var(--yellow) 0 14px,#0a0a0a 14px 28px);padding:3px 0}
+  .devbar__inner{background:var(--black);text-align:center;font-family:"Oswald",sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:.68rem;
+    color:var(--yellow);padding:7px 14px}
+
+  header{padding:26px 0 0;text-align:center}
+  .logo{width:132px;height:auto;opacity:.95}
+  main{flex:1 0 auto;padding:34px 0 46px}
+  .meta{font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;
+    letter-spacing:.13em;font-size:.76rem;color:var(--muted);margin:12px 0 0}
+
+  .player{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--green);
+    border-radius:14px;padding:22px 20px;margin:28px 0 0}
+  .player audio{width:100%;display:block}
+  .player__hint{font-size:.86rem;color:var(--muted);margin:14px 0 0}
+  .player__dl{font-size:.82rem;margin:8px 0 0}
+
+  .back{margin:34px 0 0;font-family:"Oswald",sans-serif;font-weight:500;text-transform:uppercase;
+    letter-spacing:.12em;font-size:.74rem}
+  footer{flex:0 0 auto;border-top:1px solid var(--line);padding:20px 0 26px;
+    font-size:.78rem;color:var(--muted);text-align:center}
+  footer code{font-size:.72rem;color:#6d6d6d}
+</style>
+</head>
+<body>
+
+<!-- ============ DEVELOP-KENNZEICHNUNG (vor Livegang entfernen) ============ -->
+<div class="devbar"><div class="devbar__inner">Entwicklungsfassung · interner Test · nicht veröffentlichen</div></div>
+
+<header>
+  <div class="wrap">
+    <img class="logo" src="assets/hidden-games-logo-white.svg" alt="Hidden Games">
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="eyebrow">Asservat · Mobiltelefon</p>
+    <h1>Sprachnachricht</h1>
+    <!-- Bewusst ohne Namen: Wer mit wem schreibt, sollen die Spielenden von der Pinnwand ableiten. -->
+    <p class="meta">Samstag, 31.10.2026 · 17:34 Uhr</p>
+
+    <div class="player">
+      <audio controls preload="metadata">
+        <source src="assets/audio/sprachnachricht.mp3" type="audio/mpeg">
+        Ihr Browser kann diese Audiodatei nicht abspielen.
+      </audio>
+      <p class="player__hint">Kopfhörer empfohlen — auf dem Festivalgelände ist es laut.</p>
+      <p class="player__dl"><a href="assets/audio/sprachnachricht.mp3" download>Datei herunterladen</a></p>
+    </div>
+
+    <p class="hand" style="margin-top:26px;">Hören Sie genau hin, wovon die Rede ist.</p>
+
+    <p class="back"><a href="index.html">&larr; Zurück zur Fallakte</a></p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Hidden Games · Demo-Fall „Mord um das Vermächtnis“<br>
+    <code>develop · Stand 04.09.2026</code>
+  </div>
+</footer>
+
+</body>
+</html>
