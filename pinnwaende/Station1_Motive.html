@@ -98,7 +98,7 @@
   .vrow{display:flex;align-items:center;gap:8px;}
   .play{width:28px;height:28px;border-radius:50%;background:#0b8f76;color:#fff;display:flex;
     align-items:center;justify-content:center;font-size:12px;flex:none;}
-  .wave{flex:1;height:20px;background:repeating-linear-gradient(90deg,#9fb1ad 0 2px,transparent 2px 6px);
+  .wave{flex:1;min-width:60px;height:20px;background:repeating-linear-gradient(90deg,#9fb1ad 0 2px,transparent 2px 6px);
     -webkit-mask:linear-gradient(90deg,#000 60%,#0006);mask:linear-gradient(90deg,#000 60%,#0006);border-radius:3px;}
   /* QR */
   .qrbox{background:#fff;padding:6px;border-radius:5px;display:inline-block;line-height:0;}
@@ -264,8 +264,8 @@
         <div class="b in">Du kannst so stolz auf dich sein ❤</div>
         <div class="b in">Lucida, leider muss ich dir aber noch etwas sagen.</div>
         <div class="b out">Was ist los?</div>
-        <div class="b in" style="max-width:97%;">
-          <div class="vrow"><div class="play">▶</div><div class="wave"></div><div class="qrbox" style="padding:4px;"><svg class="qr" data-seed="11" width="48" height="48"></svg></div></div>
+        <div class="b in" style="max-width:97%;width:97%;">
+          <div class="vrow"><div class="play">▶</div><div class="wave"></div><div class="qrbox" style="padding:4px;"><img src="assets/qr-sprachnachricht.svg" width="72" height="72" alt="QR-Code Sprachnachricht"></div></div>
           <span class="t" style="text-align:left;color:#ffffffb0;">Sprachnachricht · zum Anhören scannen</span>
         </div>
         <div class="b out">Das ist nicht dein Ernst. Seit seiner Krankheit habe ich ein Dutzend Bilder für ihn gemalt — und so dankt er es mir. Das soll er büßen.</div>
@@ -311,29 +311,11 @@
   <div class="tapebar bottom"><div class="edge" style="left:0"></div>
     <span>MOTIVE · BEWEISE · MOTIVE · BEWEISE · MOTIVE · BEWEISE · MOTIVE · BEWEISE · MOTIVE · BEWEISE · MOTIVE</span>
     <div class="edge" style="right:0"></div></div>
-  <div class="credit">Design-Entwurf v2.2 · Dschimail-QR echt · Sprachnachricht-QR = Platzhalter · KI-Bilder folgen</div>
+  <div class="credit">Design-Entwurf v2.3 · QR-Codes echt · KI-Bilder folgen</div>
 
 </div>
 </div></div>
 <script>
-
-  // Platzhalter-QR: erzeugt ein plausibles Muster (kein echter Code)
-  document.querySelectorAll('svg.qr').forEach(function(svg){
-    var n=25, seed=(+svg.dataset.seed||1)*7919, s=seed%233280;
-    function rnd(){ s=(s*9301+49297)%233280; return s/233280; }
-    var m=[]; for(var y=0;y<n;y++){ m[y]=[]; for(var x=0;x<n;x++) m[y][x]= rnd()>0.52?1:0; }
-    function finder(r,c){ for(var i=-1;i<8;i++) for(var j=-1;j<8;j++){
-      var y=r+i,x=c+j; if(y<0||x<0||y>=n||x>=n) continue;
-      var d=Math.max(Math.abs(i-3),Math.abs(j-3)); m[y][x]=(d<=1||d===3)?1:0; } }
-    finder(0,0); finder(0,n-7); finder(n-7,0);
-    for(var k=8;k<n-8;k++){ m[6][k]=k%2?0:1; m[k][6]=k%2?0:1; }
-    var w=+svg.getAttribute('width'), u=w/(n+2), out='';
-    out+='<rect width="'+w+'" height="'+w+'" fill="#fff"/>';
-    for(var y=0;y<n;y++) for(var x=0;x<n;x++) if(m[y][x])
-      out+='<rect x="'+((x+1)*u).toFixed(2)+'" y="'+((y+1)*u).toFixed(2)+'" width="'+(u+0.3).toFixed(2)+'" height="'+(u+0.3).toFixed(2)+'" fill="#111"/>';
-    svg.setAttribute('viewBox','0 0 '+w+' '+w);
-    svg.innerHTML=out;
-  });
 
 
   function fit(){

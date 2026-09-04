@@ -232,7 +232,7 @@
       <div class="hd">Polizia Municipale — Vernehmung</div>
       <h3 style="margin-bottom:8px;">Zeugenaussage<br>Lucida Mansi</h3>
       <div class="qrcard">
-        <div class="qrbox"><svg class="qr" data-seed="23" width="88" height="88"></svg>
+        <div class="qrbox"><img src="assets/qr-vernehmung.svg" width="88" height="88" alt="QR-Code Vernehmung">
           <span class="lab">ANHÖREN</span></div>
         <div class="txt">
           <p style="font-size:12px;margin:0;">Aufgenommen von <b>Kommissar A. Gallo</b>,<br>01.11.2026.</p>
@@ -357,29 +357,11 @@
   <div class="tapebar bottom"><div class="edge" style="left:0"></div>
     <span>ALIBI · GEPRÜFT · ALIBI · GEPRÜFT · ALIBI · GEPRÜFT · ALIBI · GEPRÜFT · ALIBI · GEPRÜFT · ALIBI</span>
     <div class="edge" style="right:0"></div></div>
-  <div class="credit">Design-Entwurf v2.2 · Platzhalter-Grafiken (KI-Bilder folgen) · Fonts = Web-Ersatz</div>
+  <div class="credit">Design-Entwurf v2.3 · QR-Codes echt · KI-Bilder folgen · Fonts = Web-Ersatz</div>
 
 </div>
 </div></div>
 <script>
-
-  // Platzhalter-QR: erzeugt ein plausibles Muster (kein echter Code)
-  document.querySelectorAll('svg.qr').forEach(function(svg){
-    var n=25, seed=(+svg.dataset.seed||1)*7919, s=seed%233280;
-    function rnd(){ s=(s*9301+49297)%233280; return s/233280; }
-    var m=[]; for(var y=0;y<n;y++){ m[y]=[]; for(var x=0;x<n;x++) m[y][x]= rnd()>0.52?1:0; }
-    function finder(r,c){ for(var i=-1;i<8;i++) for(var j=-1;j<8;j++){
-      var y=r+i,x=c+j; if(y<0||x<0||y>=n||x>=n) continue;
-      var d=Math.max(Math.abs(i-3),Math.abs(j-3)); m[y][x]=(d<=1||d===3)?1:0; } }
-    finder(0,0); finder(0,n-7); finder(n-7,0);
-    for(var k=8;k<n-8;k++){ m[6][k]=k%2?0:1; m[k][6]=k%2?0:1; }
-    var w=+svg.getAttribute('width'), u=w/(n+2), out='';
-    out+='<rect width="'+w+'" height="'+w+'" fill="#fff"/>';
-    for(var y=0;y<n;y++) for(var x=0;x<n;x++) if(m[y][x])
-      out+='<rect x="'+((x+1)*u).toFixed(2)+'" y="'+((y+1)*u).toFixed(2)+'" width="'+(u+0.3).toFixed(2)+'" height="'+(u+0.3).toFixed(2)+'" fill="#111"/>';
-    svg.setAttribute('viewBox','0 0 '+w+' '+w);
-    svg.innerHTML=out;
-  });
 
 
   function fit(){

@@ -114,6 +114,15 @@
   .station__no{font-family:"Oswald",sans-serif;font-weight:700;color:var(--green);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px}
   .station__title{font-family:"Oswald",sans-serif;font-weight:700;text-transform:uppercase;font-size:1.05rem;letter-spacing:.03em;margin-bottom:5px}
   .station p{font-size:.93rem;color:#d2d2d2;margin:0}
+  /* TESTFASSUNG: Stationen sind anklickbar und öffnen die Pinnwand in einem neuen Tab.
+     Vor Livegang zusammen mit dem Ordner /pinnwaende entfernen. */
+  a.station{display:block;text-decoration:none;color:inherit;
+    transition:border-color .15s ease, transform .15s ease, background .15s ease}
+  a.station:hover,a.station:focus-visible{border-color:var(--green);background:var(--surface-2);
+    transform:translateY(-2px)}
+  a.station:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+  .station__cta{display:inline-block;margin-top:10px;font-family:"Oswald",sans-serif;font-weight:500;
+    text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;color:var(--green)}
 
   /* ---------- Lösung ---------- */
   .solve{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px 22px}
@@ -300,18 +309,22 @@
   <section id="stationen">
     <h2>Ihr Ermittlungsauftrag</h2>
     <div class="stations">
-      <div class="station">
+      <!-- ==== TESTFASSUNG: Pinnwände verlinkt. Vor Livegang wieder zu <div class="station"> machen
+           und den Ordner /pinnwaende aus dem Repository nehmen — im Spiel liegen sie gedruckt vor. ==== -->
+      <a class="station" href="pinnwaende/Station1_Motive.html" target="_blank" rel="noopener">
         <div class="station__no">Station 1</div>
         <div class="station__title">Die Motive</div>
         <p>Wer hatte einen Grund, den Maestro zu töten? Prüfen Sie jedes Schriftstück an der Pinnwand —
         auch das, was Ihnen zunächst nebensächlich erscheint.</p>
-      </div>
-      <div class="station">
+        <span class="station__cta">Pinnwand öffnen &rarr;</span>
+      </a>
+      <a class="station" href="pinnwaende/Station2_Alibis.html" target="_blank" rel="noopener">
         <div class="station__no">Station 2</div>
         <div class="station__title">Die Alibis</div>
         <p>Wo war jede und jeder zwischen 21:00 und 22:30 Uhr? Lesen Sie die Belege genau. Nicht jeder
         hält, was er verspricht.</p>
-      </div>
+        <span class="station__cta">Pinnwand öffnen &rarr;</span>
+      </a>
     </div>
     <p class="hand" style="margin-top:20px">Jemand hier lügt mir ins Gesicht. Finden Sie heraus, wer.</p>
   </section>
@@ -362,7 +375,7 @@
 <footer>
   <div class="wrap">
     Hidden Games · Demo-Fall „Mord um das Vermächtnis“<br>
-    <code>develop · Stand 04.09.2026 · v0.6 (DE)</code>
+    <code>develop · Stand 04.09.2026 · v0.7 (DE)</code>
   </div>
 </footer>
 
